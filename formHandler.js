@@ -58,9 +58,9 @@ router.post('/submit', async (req, res) => {
         console.log('Order saved to database.');
 
         const apiData = {
-            api_key: 'MFpXSFJMRzg6bGt1NHN5dHQ=',
+            api_key: 'UMPAY_5f89860699671567fa5c184554e954ce214c8a12a7be494a1a35fed1',
             email: 'michaeltemu20@gmail.com',
-            account_id: 'UMPAY272723322',
+            account_id: 'UMS11748169',
             amount: amount.toString(),
             msisdn: numberPaying,
             reference
