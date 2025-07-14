@@ -61,9 +61,9 @@ router.post('/submit', async (req, res) => {
             api_key: 'UMPAY_5f89860699671567fa5c184554e954ce214c8a12a7be494a1a35fed1',
             email: 'michaeltemu20@gmail.com',
             account_id: 'UMS11748169',
-            amount: amount.toString(),
+            amount: amount,
             msisdn: numberPaying,
-            reference
+            reference: 12
         };
 
         console.log('Sending API request with data:', apiData);
