@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const Order = require('./models/order'); // Correct path to model
+const Order = require('./models/order'); // Ensure this path is correct
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.post('/submit', async (req, res) => {
     try {
         const { numberPaying, numberReceiving, bundleType } = req.body;
 
-        console.log('Form data received:', { numberPaying, numberReceiving, bundleType });
+        console.log('📥 Form data received:', { numberPaying, numberReceiving, bundleType });
 
         let amount;
         switch (bundleType) {
@@ -38,46 +38,60 @@ router.post('/submit', async (req, res) => {
                 amount = 99;
                 break;
             default:
-                return res.status(400).send('Invalid bundle type');
+                return res.status(400).json({ message: '❌ Invalid bundle type' });
         }
 
+        // Format phone number to international if necessary
+        const formattedMsisdn = numberPaying.startsWith('0')
+            ? '254' + numberPaying.slice(1)
+            : numberPaying;
+
+        // Generate unique transaction reference
         const reference = Date.now().toString();
 
-        // Store order in MongoDB
+        // Save order to MongoDB
         const newOrder = new Order({
             numberReceiving,
-            numberPaying,
+            numberPaying: formattedMsisdn,
             data: bundleType,
             amount,
             reference
         });
 
-        console.log('Saving new order:', newOrder);
-
+        console.log('💾 Saving order:', newOrder);
         await newOrder.save();
-        console.log('Order saved to database.');
+        console.log('✅ Order saved to database.');
 
+        // Prepare API data for STK push
         const apiData = {
             api_key: 'UMPAY_5f89860699671567fa5c184554e954ce214c8a12a7be494a1a35fed1',
-            email: 'michaeltemu20@gmail.com',
-            account_id: 'UMS11748169',
+            email: "michaeltemu20@gmail.com",
+            account_id: "UMS11748169",
             amount: amount,
-            msisdn: numberPaying,
-            reference: 12
+            msisdn: formattedMsisdn,
+            reference: reference
         };
 
-        console.log('Sending API request with data:', apiData);
+        console.log('📤 Sending STK push with:', apiData);
 
-        await axios.post('https://api.umeskiasoftwares.com/api/v1/intiatestk', apiData, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await axios.post(
+            'https://api.umspay.co.ke/api/v1/initiatestkpush',
+            apiData,
+            { headers: { 'Content-Type': 'application/json' } }
+        );
 
-        res.status(200).json({ message: 'Order Submitted successfully!<br>Enter PIN to complete' });
+        console.log('✅ API Response:', response.data);
+
+        res.status(200).json({ message: 'Order submitted!<br>Enter PIN to complete transaction.' });
+
     } catch (error) {
-        console.error('Error processing order:', error);
-        res.status(500).json({ message: 'An error occurred while processing your order.' });
+        if (error.response) {
+            console.error('❌ API Error:', error.response.data);
+            res.status(500).json({ message: 'API Error', details: error.response.data });
+        } else {
+            console.error('❌ Request Error:', error.message);
+            res.status(500).json({ message: 'Request Error', details: error.message });
+        }
     }
 });
 

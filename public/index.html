@@ -1,166 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bingwa Sokoni - Agent Michael</title>
-    <link rel="icon" href="/inner.png" type="image/png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2em;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-        main {
-            padding: 2em;
-        }
-        form {
-            background-color: #fff;
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            text-align: left;
-        }
-        form label {
-            display: block;
-            margin-bottom: 0.5em;
-            font-weight: bold;
-        }
-        form input, form select {
-            width: 100%;
-            padding: 0.5em;
-            margin-bottom: 1em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        form button {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 0.5em 1em;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        form button:hover {
-            background-color: #555;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 1em 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        #dialog {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #313131;
-            padding: 1em;
-            border: 1px solid #080000;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: white;
-        }
-        #dialog p {
-            margin: 0;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Agent Michael</h1>
-    </header>
-    <main>
-        <h2>Buy Data Bundles</h2>
-        <p>Purchase data bundles quickly and easily. Even when having Okoa.</p>
-        <div id="dialog">
-            <p id="dialog-message"></p>
-        </div>
-        <form id="data-form" action="/submit" method="POST">
-            <label for="number-paying">Number Paying</label>
-            <input type="text" id="number-paying" name="numberPaying" placeholder="Enter number paying" required>
-
-            <label for="number-receiving">Number Receiving</label>
-            <input type="text" id="number-receiving" name="numberReceiving" placeholder="Enter number receiving" required>
-
-            <label for="bundle-type">Select Bundle</label>
-            <select id="bundle-type" name="bundleType" required>
-                <option value="1.25GB till midnight - Ksh 55">1.25GB till midnight - Ksh 55</option>
-                <option value="2.5GB valid for 7 days - Ksh 300">2.5GB valid for 7 days - Ksh 300</option>
-                <option value="350MBS valid for 7 days - Ksh 47">350MBS valid for 7 days - Ksh 47</option>
-                <option value="1.5GB valid for 3 hours - Ksh 49">1.5GB valid for 3 hours - Ksh 49</option>
-                <option value="6GB valid for 7 days - Ksh 700">6GB valid for 7 days - Ksh 700</option>
-                <option value="1GB valid for 1 Hour - Ksh 19">1GB valid for 1 Hour - Ksh 19</option>
-                <option value="250MBS valid for 24 Hours - Ksh 19">250MBS valid for 24 Hours - Ksh 19</option>
-                <option value="1GB valid for 24 Hours - Ksh 99">1GB valid for 24 Hours - Ksh 99</option>
-            </select>
-
-            <button type="submit">Purchase</button>
-        </form>
-    </main>
-    <footer>
-        <p>&copy; 2024 Agent Michael</p>
-        <p>For any queries, complaints, or suggestions, feel free to reach us through 
-            <a href="https://wa.me/254798608460" target="_blank" style="color: #fff; text-decoration: underline;">WhatsApp</a>.
-        </p>
-    </footer>
-</body>
-<script>
-    // Function to show dialog box
-    function showDialog(message) {
-        const dialog = document.getElementById('dialog');
-        const dialogMessage = document.getElementById('dialog-message');
-        dialogMessage.innerHTML = message; // Use innerHTML to render HTML content
-        dialog.style.display = 'block';
-
-        // Hide the dialog after 5 seconds
-        setTimeout(() => {
-            dialog.style.display = 'none';
-        }, 5000);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bingwa Sokoni - Agent Michael</title>
+  <link rel="icon" href="/inner.png" type="image/png" />
+  <style>
+    /* existing styles... */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1em 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2em;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    main {
+      padding: 2em;
+    }
+    form {
+      background-color: #fff;
+      padding: 2em;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      text-align: left;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #555;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 1em 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    #dialog {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #313131;
+      padding: 1em;
+      border: 1px solid #080000;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      color: white;
+      z-index: 1001;
+    }
+    #dialog p {
+      margin: 0;
     }
 
-    // Example usage: Call this function after a form submission
-    document.querySelector('form').addEventListener('submit', async (event) => {
-        event.preventDefault();
+    /* 🔄 Loader styles */
+    #loading-spinner {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 1.5em;
+      border-radius: 10px;
+      font-size: 1em;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Agent Michael</h1>
+  </header>
+  <main>
+    <h2>Buy Data Bundles</h2>
+    <p>Purchase data bundles quickly and easily. Even when having Okoa.</p>
 
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData.entries());
+    <div id="dialog">
+      <p id="dialog-message"></p>
+    </div>
 
-        try {
-            const response = await fetch('/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+    <!-- 🔄 Loading Spinner -->
+    <div id="loading-spinner">Processing your request...</div>
 
-            const result = await response.json();
-            showDialog(result.message);
+    <form id="data-form" action="/submit" method="POST">
+      <label for="number-paying">Number Paying</label>
+      <input type="text" id="number-paying" name="numberPaying" placeholder="Enter number paying" required>
 
-        } catch (error) {
-            showDialog('An error occurred while processing your order.');
-        }
+      <label for="number-receiving">Number Receiving</label>
+      <input type="text" id="number-receiving" name="numberReceiving" placeholder="Enter number receiving" required>
+
+      <label for="bundle-type">Select Bundle</label>
+      <select id="bundle-type" name="bundleType" required>
+        <option value="1.25GB till midnight - Ksh 55">1.25GB till midnight - Ksh 55</option>
+        <option value="2.5GB valid for 7 days - Ksh 300">2.5GB valid for 7 days - Ksh 300</option>
+        <option value="350MBS valid for 7 days - Ksh 47">350MBS valid for 7 days - Ksh 47</option>
+        <option value="1.5GB valid for 3 hours - Ksh 49">1.5GB valid for 3 hours - Ksh 49</option>
+        <option value="6GB valid for 7 days - Ksh 700">6GB valid for 7 days - Ksh 700</option>
+        <option value="1GB valid for 1 Hour - Ksh 19">1GB valid for 1 Hour - Ksh 19</option>
+        <option value="250MBS valid for 24 Hours - Ksh 19">250MBS valid for 24 Hours - Ksh 19</option>
+        <option value="1GB valid for 24 Hours - Ksh 99">1GB valid for 24 Hours - Ksh 99</option>
+      </select>
+
+      <button type="submit">Purchase</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Agent Michael</p>
+    <p>For any queries, complaints, or suggestions, feel free to reach us through 
+      <a href="https://wa.me/254798608460" target="_blank" style="color: #fff; text-decoration: underline;">WhatsApp</a>.
+    </p>
+  </footer>
+
+  <script>
+    function showDialog(message) {
+      const dialog = document.getElementById('dialog');
+      const dialogMessage = document.getElementById('dialog-message');
+      dialogMessage.innerHTML = message;
+      dialog.style.display = 'block';
+
+      setTimeout(() => {
+        dialog.style.display = 'none';
+      }, 5000);
+    }
+
+    document.getElementById('data-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const form = event.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Show loading spinner
+      const spinner = document.getElementById('loading-spinner');
+      spinner.style.display = 'block';
+
+      try {
+        const response = await fetch('/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        showDialog(result.message);
+      } catch (error) {
+        showDialog('An error occurred while processing your order.');
+      } finally {
+        // Hide loading spinner
+        spinner.style.display = 'none';
+      }
     });
-</script>
+  </script>
+</body>
 </html>
