@@ -64,9 +64,9 @@ router.post('/submit', async (req, res) => {
 
         // Prepare API data for STK push
         const apiData = {
-            api_key: 'UMPAY_5f89860699671567fa5c184554e954ce214c8a12a7be494a1a35fed1',
+            api_key: 'UMPAY_4f5f00871e02769a7b490ddc0e91ebd8abb74ef4c5aa0ccceea1d49c',
             email: "michaeltemu20@gmail.com",
-            account_id: "UMS11748169",
+            account_id: "UMSPAY66947618",
             amount: amount,
             msisdn: formattedMsisdn,
             reference: reference
